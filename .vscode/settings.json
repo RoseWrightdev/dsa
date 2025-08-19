@@ -1,0 +1,15 @@
+{
+    "github.copilot.enable": {
+        "*": false
+    },
+    "github.copilot.editor.enableAutoCompletions": false,
+    "[python]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "editor.language.server": false
+    },
+    "python.formatting.provider": "none",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+}
