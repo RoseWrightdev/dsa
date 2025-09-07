@@ -81,21 +81,24 @@ def dfs(graph: Graph, start_node: Any) -> List[Any]:
 # ======================================================================
 
 def is_cycle_undirected(graph: Graph) -> bool:
-    visited: Set[Any] = set()
-    for node in graph.get_nodes():
-        if node not in visited:
-            if _is_cycle_undirected_util(graph, node, visited, -1):
-                return True
-    return False
+    if not graph.graph:
+        return False
+    visited = set()
 
-def _is_cycle_undirected_util(graph: Graph, u: Any, visited: Set[Any], parent: Any) -> bool:
-    visited.add(u)
-    for v, weight in graph.graph[u]:
-        if v not in visited:
-            if _is_cycle_undirected_util(graph, v, visited, u):
+    def dfs(vertex, parent):
+        visited.add(vertex)
+        for neighbor, _ in graph.graph[vertex]:
+            if neighbor not in visited:
+                if dfs(neighbor, vertex):
+                    return True
+            elif neighbor != parent:
                 return True
-        elif v != parent:
-            return True
+        return False
+
+    for vertex in graph.get_nodes():
+        if vertex not in visited:
+            if dfs(vertex, None):
+                return True
     return False
 
 def is_cycle_directed(graph: Graph) -> bool:
